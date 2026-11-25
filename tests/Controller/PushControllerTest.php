@@ -75,8 +75,13 @@ final class PushControllerTest extends TestCase
 
     public function testUnknownOrUnregisteredConnectionIsNotFound(): void
     {
-        self::assertSame(404, ($this->controller)($this->jsonPush('secret-1', 'ping'), 'nope')->getStatusCode());
-        self::assertSame(404, ($this->controller)($this->jsonPush('', 'ping'), 'unregistered')->getStatusCode());
+        $unknown = ($this->controller)($this->jsonPush('secret-1', 'ping'), 'nope');
+        $unregistered = ($this->controller)($this->jsonPush('', 'ping'), 'unregistered');
+
+        self::assertSame(404, $unknown->getStatusCode());
+        self::assertStringContainsString('Unknown connection', (string) $unknown->getContent());
+        self::assertSame(404, $unregistered->getStatusCode());
+        self::assertStringContainsString('No push client registered', (string) $unregistered->getContent());
     }
 
     public function testInvalidTypeIsBadRequest(): void

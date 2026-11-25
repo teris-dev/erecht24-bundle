@@ -34,8 +34,11 @@ final class PushController
         $type = $data['erecht24_type'] ?? null;
 
         $known = $this->connections->get($connection);
-        if (null === $known?->secret) {
+        if (null === $known) {
             return self::reply(404, 'Unknown connection.');
+        }
+        if (null === $known->secret) {
+            return self::reply(404, 'No push client registered for this connection.');
         }
         if (!\is_string($secret) || !hash_equals($known->secret, $secret)) {
             $this->logger->warning('eRecht24 push with invalid secret for connection "{connection}".', ['connection' => $connection]);

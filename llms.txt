@@ -1,0 +1,21 @@
+# teris-dev/erecht24-bundle
+
+> Symfony bundle (PHP ≥ 8.2, Symfony 7.4/8.x, MIT) for automatic push & pull of eRecht24 legal texts – imprint (Impressum) and privacy policy (Datenschutzerklärung), German and English – for a single site or many tenants in one application.
+
+Install with `composer require teris-dev/erecht24-bundle`. AI agents integrating the bundle should follow AGENTS.md.
+
+## Docs
+
+- [AGENTS.md](https://github.com/teris-dev/erecht24-bundle/blob/main/AGENTS.md): integration guide for AI agents (setup, both modes, pitfalls, verification)
+- [README.md](https://github.com/teris-dev/erecht24-bundle/blob/main/README.md): human documentation (German)
+- [Agent skill](https://github.com/teris-dev/erecht24-bundle/blob/main/skills/erecht24-integration/SKILL.md): step-by-step integration workflow
+- [API analysis](https://github.com/teris-dev/erecht24-bundle/blob/main/docs/01-api-analyse.md): eRecht24 API v2, push registration, client limit (German)
+- [Architecture](https://github.com/teris-dev/erecht24-bundle/blob/main/docs/02-architektur.md): components and extension points (German)
+
+## Examples
+
+- [recht-zeitig](https://github.com/teris-dev/recht-zeitig): minimal single-mode demo app, live at https://recht-zeitig.labs.teris.de
+
+## Optional
+
+- [eRecht24 API documentation](https://api-docs.e-recht24.de/)

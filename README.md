@@ -12,6 +12,23 @@ Datenschutzerklärung, jeweils Deutsch und Englisch) für Symfony 7.4 LTS und 8.
 
 > Hintergrund zur API und zur Architektur: [`docs/`](docs/README.md)
 
+## Mit KI integrieren
+
+Das Bundle bringt Anleitungen für KI-Assistenten mit:
+
+- [`AGENTS.md`](AGENTS.md): vollständige Integrationsanleitung für Agenten (Codex, Cursor,
+  Copilot, Claude Code über `CLAUDE.md` …). Nach der Installation liegt sie unter
+  `vendor/teris-dev/erecht24-bundle/AGENTS.md`.
+- [`skills/erecht24-integration`](skills/erecht24-integration/SKILL.md): Agent Skill mit dem
+  Ablauf Schritt für Schritt. Ins eigene Projekt übernehmen:
+  ```bash
+  mkdir -p .claude/skills && cp -r vendor/teris-dev/erecht24-bundle/skills/erecht24-integration .claude/skills/
+  ```
+- [`llms.txt`](llms.txt): Index für KIs, die das Repository vor der Installation lesen.
+
+Ein Prompt genügt, zum Beispiel: *„Installiere teris-dev/erecht24-bundle im Multi-Tenant-Modus
+und folge der AGENTS.md des Pakets.“*
+
 ## Installation
 
 ```bash
@@ -195,11 +212,26 @@ Bei 400 und 422 zeigt eRecht24 dem Kunden im Projekt-Manager einen Fehler an.
   eRecht24 vergibt dabei ein **neues Secret**.
 - Das HTML von eRecht24 wird unverändert ausgegeben (`is_safe`).
 
+## Eigener Developer-Key
+
+eRecht24 verlangt neben dem API-Key des Kunden einen **Developer-Key**, der die Software
+identifiziert. Das Bundle bringt seinen eigenen mit (`ERecht24Bundle::PLUGIN_KEY`).
+Plugin-Keys sind bei Open-Source-Plugins öffentlich. Wer von eRecht24 einen eigenen
+Developer-Key erhalten hat, etwa für ein eigenes Produkt auf Basis des Bundles,
+überschreibt ihn:
+
+```yaml
+erecht24:
+    plugin_key: '%env(ERECHT24_PLUGIN_KEY)%'
+    client_info:
+        plugin_name: 'acme/website-builder'
+```
+
 ## Konfigurationsreferenz
 
 ```yaml
 erecht24:
-    plugin_key: '…'            # Developer-Key des Bundles (voreingestellt)
+    plugin_key: '…'            # Developer-Key; voreingestellt = der des Bundles, überschreibbar
     base_uri: 'https://api.e-recht24.de/v2'
     api_key: ~                 # Single-Modus
     client_id: ~               # Single-Modus
